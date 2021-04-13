@@ -1,0 +1,29 @@
+.border-top-0 {
+  border-top: 0;
+}
+
+.border-0 {
+  border: none;
+}
+
+.border-radius-0 {
+  border-radius: 0;
+}
+
+.table-cart table th, table td {
+  vertical-align: middle !important;
+}
+
+.table-cart thead th {
+  border: none;
+}
+
+.table-list thead th {
+  border-bottom: 1px solid $dark;
+  padding: 10px;
+}
+
+.table-list tbody td {
+  border-bottom: 1px solid $dark;
+  padding: 10px;
+}

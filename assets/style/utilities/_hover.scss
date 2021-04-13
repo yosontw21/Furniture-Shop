@@ -1,0 +1,62 @@
+.addCartProduct {
+  font-size: 20px;
+  background-color: $dark;
+  border: 0;
+  &:hover{
+    background-color: $secondary;
+  }
+}
+
+.delcardBtn a {
+  color: $dark;
+  font-size: 30px;
+  &:hover {
+    font-size: 40px;
+    color: $success;
+  }
+}
+.delOrderAllBtn {
+  border: 1px solid $dark;
+  color: $dark;
+  &:hover {
+    background: $dark;
+    color: #ffffff;
+  }
+}
+
+.list-info {
+  margin: 50px auto 0;
+  background: $dark;
+  color: #ffffff;
+  border: 0;
+  padding: 8px 0;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  &:hover {
+    background: $secondary;
+  }
+}
+
+.nav-hover {
+  color: #000;
+  font-weight: bold;
+  &:hover {
+    color: $success;
+  }
+} 
+
+.logo a{
+  color: #000;
+  &:hover {
+    font-size: 26px;
+    color: $success;
+  }
+}
+
+.icon-edit {
+  color: #000;
+&:hover {
+  color: $success;
+}
+}

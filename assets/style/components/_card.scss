@@ -1,0 +1,47 @@
+.recommend-card{
+  min-width: 350px;
+}
+
+.recommend-card img {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.recommend-img img{
+  border-radius: 50%;
+  width: 40px;
+}
+
+.recommend-wall {
+  overflow-x: scroll;
+}
+
+.recommend-wall::-webkit-scrollbar {
+  display: none;
+}
+
+.transport-info li:nth-child(1)::after,
+.transport-info li:nth-child(2)::after,
+.transport-info li:nth-child(3)::after {
+  content: '';
+  position: absolute;
+  top: 49px;
+  right: -100px;
+  border: 10px solid $dark;
+  border-top: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.card-product {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  background: $dark;
+  padding: 8px 20px;
+  color: #ffffff;
+  font-size: 20px;
+}

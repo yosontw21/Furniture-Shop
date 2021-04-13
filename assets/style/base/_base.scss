@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto:wght@400;500;700;900&display=swap');
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  overflow: hidden;
+  font-size: 16px;
+  width: 100%;
+}
+
+:root {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+:root body {
+  position: absolute;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+a {
+	text-decoration: none;
+  display: block;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+span {
+  vertical-align: baseline;
+}
+
+table {
+  font-size: 20px;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, p {
+  margin-bottom: 0;
+}
+
+.material-icons {
+  vertical-align: bottom;
+}
