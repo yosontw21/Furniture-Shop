@@ -29,7 +29,6 @@ const getOrderList = () => {
 // 渲染資料
 const renderOrderList = () => {
   let str = '';
-  let productStr = '';
   orderData.forEach((items) => {
     // 組時間字串
     const timeStamp = new Date(items.createdAt * 1000);
@@ -37,9 +36,12 @@ const renderOrderList = () => {
       timeStamp.getMonth() + 1
     }/${timeStamp.getDate()}`;
 
+    // 組產品字串
+    let productStr = '';
     items.products.forEach((productItems) => {
       productStr += `<p class="mb-2">${productItems.title}x${productItems.quantity}</p>`;
     });
+
     // 判斷訂單處理狀態
     let orderStatus = '';
     if (items.paid == true) {
