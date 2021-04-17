@@ -310,11 +310,13 @@
       <option value="窗簾">窗簾</option>
     </select>
     <ul class="row productList">
+      <img src="./assets/images/Spin-1s-200px.svg" style="margin: auto;">
+
     </ul>
   </div>
   <div class="bg-light py-8 mb-8">
     <div class="container">
-      <h2 class="text-center font-xl mb-6">我的購物車</h2>
+      <h2 class="text-center font-xl mb-6" data-protal="">我的購物車</h2>
       <table class="table table-cart table-hover">
         <thead>
           <tr>
@@ -326,6 +328,17 @@
           </tr>
         </thead>
         <tbody class="cartList">
+          <tr>
+
+            <td>
+            </td>
+            <td>
+            </td>
+            <td> <img src="./assets/images/Spin-1s-200px-bg-light.svg">
+            </td>
+            <td>
+            </td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>
@@ -337,7 +350,7 @@
             <td>
               <p>總金額</p>
             </td>
-            <td class="jsCartSum">NT$13,980</td>
+            <td class="jsCartSum"></td>
           </tr>
         </tfoot>
       </table>
@@ -346,38 +359,48 @@
   <div class="container mb-9">
     <h2 class="text-center font-xl mb-6">填寫預訂資料</h2>
     <div class="d-flex justify-content-center">
-      <form action="" class="w-50">
+      <form action="" class="w-50 myForm" id="">
         <div class="form-group">
-          <label for="name">姓名</label>
+          <label for="userName">姓名</label>
           <div class="">
-            <input type="text" placeholder="請輸入姓名" class="form-control orderName" id="name">
+            <input type="text" placeholder="請輸入姓名" class="form-control userName" id="userName" name="姓名">
+            <p class="text-danger font-weight-bold" data-message="姓名"></p>
           </div>
+
         </div>
         <div class="form-group">
-          <label for="tel">電話</label>
+          <label for="userTel">電話</label>
           <div class="">
-            <input type="tel" placeholder="請輸入電話" class="form-control orderTel" id="tel">
+            <input type="tel" placeholder="請輸入電話" class="form-control userTel" id="userTel" name="電話">
+            <p class="text-danger font-weight-bold" data-message="電話"></p>
           </div>
+
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="userEmail">Email</label>
           <div class="">
-            <input type="email" placeholder="請輸入 Email" class="form-control orderEmail" id="email">
+            <input type="email" placeholder="請輸入 Email" class="form-control userEmail" id="userEmail" name="信箱">
+            <p class="text-danger font-weight-bold" data-message="信箱"></p>
           </div>
+
         </div>
         <div class="form-group">
-          <label for="address">寄送地址</label>
+          <label for="userAddress">寄送地址</label>
           <div class="">
-            <input type="text" placeholder="請輸入寄送地址" class="form-control orderAddress" id="address">
+            <input type="text" placeholder="請輸入寄送地址" class="form-control userAddress" id="userAddress" name="寄送地址">
+            <p class="text-danger font-weight-bold" data-message="寄送地址"></p>
           </div>
+
         </div>
         <div class="form-group">
-          <label for="transaction">交易方式</label>
-          <select name="transaction" id="transaction" class="form-control orderPayment">
+          <label for="userPayment">交易方式</label>
+          <select name="交易方式" id="userPayment" class="form-control userPayment">
+            <option disabled selected hidden>請選擇</option>
             <option value="ATM">ATM</option>
             <option value="信用卡">信用卡</option>
             <option value="超商付款">超商付款</option>
           </select>
+          <p class="text-danger font-weight-bold" data-message="交易方式"></p>
         </div>
         <input type="button" value="送出預訂資料" class="list-info w-75 orderListInfo">
     </div>
@@ -437,6 +460,9 @@
     crossorigin="anonymous"></script>
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+  <script src="./assets/js/utilities.js"></script>
+  <script src="./assets/js/config.js"></script>
   <script src="./assets/js/all.js"></script>
 </body>
 
