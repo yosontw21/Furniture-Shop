@@ -1,20 +1,20 @@
 // 綁定 DOM
 const jsUserOrderInfo = document.querySelector('.jsUserOrderInfo');
 
+// header
+const headers = {
+  headers: {
+    Authorization: token,
+  },
+};
+
 //資料初始化
 let orderData = [];
 
-// 取得訂單表
+// 取得訂單表 API
 const getOrderList = () => {
   axios
-    .get(
-      `https://hexschoollivejs.herokuapp.com/api/livejs/v1/admin/${api_path}/orders`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    )
+    .get(`${apiAdmin}/${api_path}/orders`, headers)
     .then((res) => {
       orderData = res.data.orders;
       renderOrderList();
@@ -170,39 +170,34 @@ const editOrderInfo = (orderId, status) => {
   }
   axios
     .put(
-      `https://hexschoollivejs.herokuapp.com/api/livejs/v1/admin/${api_path}/orders`,
+      `${apiAdmin}/${api_path}/orders`,
       {
         data: {
           id: orderId,
           paid: newStatus,
         },
       },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
+      headers
     )
     .then((res) => {
       alert('修改訂單狀態成功');
       getOrderList();
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
 
 //刪除特定訂單 API
 const delSingleOrder = (orderId) => {
   axios
-    .delete(
-      `https://hexschoollivejs.herokuapp.com/api/livejs/v1/admin/${api_path}/orders/${orderId}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    )
+    .delete(`${apiAdmin}/${api_path}/orders/${orderId}`, headers)
     .then((res) => {
       alert('刪除單筆資料成功');
       getOrderList();
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
 // 刪除修改訂單資料
@@ -213,15 +208,25 @@ jsUserOrderInfo.addEventListener('click', (e) => {
   // 刪除訂單
   if (orderValue == '刪除') {
     let orderId = e.target.getAttribute('data-id');
-    delSingleOrder(orderId);
-    return;
+    // 是否要刪除客戶訂單資料確認
+    if (checkDelCustInfo() == true) {
+      delSingleOrder(orderId);
+      return;
+    } else {
+      return;
+    }
   }
-  // 修改訂單
+  // 修改訂單狀態
   if (orderClass == 'orderStatus') {
     let orderId = e.target.getAttribute('data-id');
     let status = e.target.getAttribute('data-status');
-    editOrderInfo(orderId, status);
-    return;
+    // 是否已處理完客戶訂單資料
+    if (checkCustStatus() == true) {
+      editOrderInfo(orderId, status);
+      return;
+    } else {
+      return;
+    }
   }
 });
 
@@ -229,23 +234,19 @@ jsUserOrderInfo.addEventListener('click', (e) => {
 const delOrderAllBtn = document.querySelector('.delOrderAllBtn');
 delOrderAllBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  axios
-    .delete(
-      'https://hexschoollivejs.herokuapp.com/api/livejs/v1/admin/yosontw/orders',
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    )
-    .then((res) => {
-      alert('刪除所有訂單成功');
-      getOrderList();
-    })
-    .catch((error) => {
-      console.log(error);
-      alert('目前你尚未加入購物車品項');
-    });
+  // 是否要刪除所有客戶訂單資料確認
+  if (checkDelCustAllInfo() == true) {
+    axios
+      .delete(`${apiAdmin}/${api_path}/orders`, headers)
+      .then((res) => {
+        alert('刪除所有訂單成功');
+        getOrderList();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('目前沒有客戶訂單資料');
+      });
+  }
 });
 
 // 資料初始化
