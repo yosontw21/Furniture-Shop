@@ -32,7 +32,7 @@ const renderProductData = (productData) => {
       items.images
     }" alt="" class="bg-cover w-100" style="height: 302px;">
   <div class="card-product">新品</div>
-  <input type="button" class="addCartProduct w-100 py-3 text-white text-center mb-2" data-id="${
+  <input type="button" class="addCartProduct checkCartAdd w-100 py-3 text-white text-center mb-2" data-id="${
     items.id
   }" value="加入購物車">
   <div>
@@ -85,7 +85,7 @@ const renderCartList = () => {
             ${items.quantity}
             <a href="" class="icon-edit material-icons ml-2 font-weight-bold" data-id="${
               items.id
-            }">add</a>
+            }" >add</a>
       </div>
     </td>
       <td>NT$${toThousand(productSum)}</td>
@@ -126,12 +126,23 @@ productList.addEventListener('click', (e) => {
     }
   });
   // 是否要加入購物車商品確認
-  if (checkAdd() == true) {
-    addCartProduct(productId, checkNum);
-    return;
-  } else {
-    return;
-  }
+  const checkAddCart = () => {
+    Swal.fire({
+      title: '要把這筆商品加入購物車嗎 ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire('加入購物車成功', '', 'success');
+        addCartProduct(productId, checkNum);
+      }
+    });
+  };
+  checkAddCart();
 });
 
 // 加入購物車 AIP 請求
@@ -144,7 +155,7 @@ const addCartProduct = (productId, checkNum) => {
       },
     })
     .then((res) => {
-      alert('加入購物車成功');
+      console.log(res);
       getCartList();
     })
     .catch((error) => {
@@ -176,7 +187,6 @@ const deleteSingleCart = (cartId) => {
     .delete(`${api}/${api_path}/carts/${cartId}`)
     .then((res) => {
       console.log(res);
-      alert('您已刪除購物車單筆商品');
       getCartList();
     })
     .catch((error) => {
@@ -192,13 +202,24 @@ cartList.addEventListener('click', (e) => {
 
   // 刪除購物車單筆資料
   if (textTarget === 'clear') {
-    // 是否要刪除確認
-    if (checkDelete() == true) {
-      deleteSingleCart(cartId);
-      return;
-    } else {
-      return;
-    }
+    // 是否要刪除單筆購物車資料確認
+    const checkDelSingleCart = () => {
+      Swal.fire({
+        title: '要把這筆商品從購物車刪除嗎 ?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire('您已刪除購物車單筆商品', '', 'success');
+          deleteSingleCart(cartId);
+        }
+      });
+    };
+    checkDelSingleCart();
   }
 
   // 增加購物車數量
@@ -221,34 +242,50 @@ cartList.addEventListener('click', (e) => {
       }
     });
     if (editNum < 1) {
-      alert('商品數量不得少於1');
+      Swal.fire('商品數量不得少於1', '', 'warning');
       return;
     }
     editCartNum(cartId, editNum);
   }
 });
 
+// 清除購物車內全部產品 API
+const delOrderProduct = () => {
+  if (cartData.length == 0) {
+    Swal.fire('您尚未加入購物車品項');
+  }
+  axios
+    .delete(`${api}/${api_path}/carts/`)
+    .then((res) => {
+      console.log(res);
+      getCartList();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 // 清除購物車內全部產品
 const delOrderAllBtn = document.querySelector('.delOrderAllBtn');
-
 delOrderAllBtn.addEventListener('click', (e) => {
   e.preventDefault();
   //　是否要刪除全部購物車確認
-  if (checkAllDelete() == true) {
-    axios
-      .delete(`${api}/${api_path}/carts/`)
-      .then((res) => {
-        getCartList();
-        alert('您已清除購物車所有商品');
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('您尚未加入購物車品項');
-      });
-    return;
-  } else {
-    return;
-  }
+  const checkDelAllCart = () => {
+    Swal.fire({
+      title: '請注意!! 要把所有購物車商品全部刪除嗎 ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire('您已清除購物車所有商品', '', 'success');
+        delOrderProduct();
+      }
+    });
+  };
+  checkDelAllCart();
 });
 
 // 訂單驗證欄位
@@ -320,7 +357,7 @@ orderListInfo.addEventListener('click', (e) => {
 
   let cartLength = document.querySelectorAll('.cartList tr').length;
   if (cartLength == 0) {
-    alert('請輸入至少一個購物車商品');
+    Swal.fire('請輸入至少一個購物車商品', '', 'warning');
     return;
   }
   if (
@@ -330,7 +367,7 @@ orderListInfo.addEventListener('click', (e) => {
     userAddress == '' ||
     userPayment == '請選擇'
   ) {
-    alert('請輸入訂單資訊！');
+    Swal.fire('請輸入訂單資訊！', '', 'warning');
     return;
   }
   let data = {
@@ -341,12 +378,23 @@ orderListInfo.addEventListener('click', (e) => {
     payment: userPayment,
   };
   //是否送出訂單確認
-  if (checkOrderList() == true) {
-    createOrder(data);
-    return;
-  } else {
-    return;
-  }
+  const checkOrderList = () => {
+    Swal.fire({
+      title: '確定要送出這筆訂單資訊嗎 ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire('您已成功送出定單', '', 'success');
+        createOrder(data);
+      }
+    });
+  };
+  checkOrderList();
 });
 
 // 送出訂單 API 請求
@@ -364,7 +412,6 @@ const createOrder = (items) => {
       },
     })
     .then((res) => {
-      alert('建立訂單成功');
       form.reset();
       getCartList();
       console.log(res);

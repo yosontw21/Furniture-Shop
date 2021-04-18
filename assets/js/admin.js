@@ -180,7 +180,6 @@ const editOrderInfo = (orderId, status) => {
       headers
     )
     .then((res) => {
-      alert('修改訂單狀態成功');
       getOrderList();
     })
     .catch((error) => {
@@ -193,7 +192,6 @@ const delSingleOrder = (orderId) => {
   axios
     .delete(`${apiAdmin}/${api_path}/orders/${orderId}`, headers)
     .then((res) => {
-      alert('刪除單筆資料成功');
       getOrderList();
     })
     .catch((error) => {
@@ -209,44 +207,86 @@ jsUserOrderInfo.addEventListener('click', (e) => {
   if (orderValue == '刪除') {
     let orderId = e.target.getAttribute('data-id');
     // 是否要刪除客戶訂單資料確認
-    if (checkDelCustInfo() == true) {
-      delSingleOrder(orderId);
-      return;
-    } else {
-      return;
-    }
+    const checkDelCustInfo = () => {
+      Swal.fire({
+        title: '確定要刪除這筆客戶訂單資料嗎 ?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire('修改訂單狀態成功', '', 'success');
+          delSingleOrder(orderId);
+        }
+      });
+    };
+    checkDelCustInfo();
   }
   // 修改訂單狀態
   if (orderClass == 'orderStatus') {
     let orderId = e.target.getAttribute('data-id');
     let status = e.target.getAttribute('data-status');
     // 是否已處理完客戶訂單資料
-    if (checkCustStatus() == true) {
-      editOrderInfo(orderId, status);
-      return;
-    } else {
-      return;
-    }
+    const checkDelCustInfo = () => {
+      Swal.fire({
+        title: '確定已處理完客戶訂單資料了嗎 ?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire('修改客戶訂單狀態成功', '', 'success');
+          editOrderInfo(orderId, status);
+        }
+      });
+    };
+    checkDelCustInfo();
   }
 });
 
-// 刪除全部訂單
+// 刪除全部客戶訂單 API
+const delOrderAllApi = () => {
+  if (orderData.length == 0) {
+    Swal.fire('目前沒有客戶訂單資料');
+  }
+  axios
+    .delete(`${apiAdmin}/${api_path}/orders`, headers)
+    .then((res) => {
+      getOrderList();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// 刪除全部客戶訂單
 const delOrderAllBtn = document.querySelector('.delOrderAllBtn');
 delOrderAllBtn.addEventListener('click', (e) => {
   e.preventDefault();
   // 是否要刪除所有客戶訂單資料確認
-  if (checkDelCustAllInfo() == true) {
-    axios
-      .delete(`${apiAdmin}/${api_path}/orders`, headers)
-      .then((res) => {
-        alert('刪除所有訂單成功');
-        getOrderList();
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('目前沒有客戶訂單資料');
-      });
-  }
+  const checkDelAllCust = () => {
+    Swal.fire({
+      title: '請注意!! 要把所有客戶訂單資料全部刪除嗎 ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire('您已清除所有客戶訂單資料', '', 'success');
+        delOrderAllApi();
+      }
+    });
+  };
+  checkDelAllCust();
 });
 
 // 資料初始化
