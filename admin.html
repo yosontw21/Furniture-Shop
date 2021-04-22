@@ -28,8 +28,17 @@
   </nav>
   <div class="bg-dark w-100 mb-8" style=" height: 40px;"></div>
   <div class="container">
-    <h2 class="text-center font-xl mb-6">全產品類別營收比重</h2>
-    <div id="chart"><img src="./assets/images/Spin-1s-200px.svg" style="margin: auto;"></div>
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <h2 class="text-center font-xl mb-6">全產品類別營收比重</h2>
+        <div id="chart"></div>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <h2 class="text-center font-xl mb-6">全品項營收比重</h2>
+        <div id="chartSum"></div>
+      </div>
+    </div>
   </div>
   <div class="container mb-10">
     <div class="text-right mb-3">
@@ -75,7 +84,8 @@
   <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 
   <script src="./assets/js/config.js"></script>
-  <script src="./assets/js/admin.js"></script>
+  <script type="module" src="./assets/js/module.js"></script>
+  <script type="module" src="./assets/js/admin.js"></script>
 </body>
 
 </html>

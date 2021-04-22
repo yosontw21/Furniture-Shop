@@ -1,3 +1,7 @@
+import {fnDelCustInfo} from './module.js';
+import {fnProcessCustInfo} from './module.js';
+import {fnDelCustAllCust} from './module.js';
+
 // 綁定 DOM
 const jsUserOrderInfo = document.querySelector('.jsUserOrderInfo');
 
@@ -8,7 +12,7 @@ const headers = {
   },
 };
 
-//資料初始化
+// 資料初始化
 let orderData = [];
 
 // 取得訂單表 API
@@ -18,7 +22,7 @@ const getOrderList = () => {
     .then((res) => {
       orderData = res.data.orders;
       renderOrderList();
-      // renderOrderC3();
+      renderOrderC3();
       renderOrderSort();
     })
     .catch((error) => {
@@ -94,7 +98,7 @@ const renderOrderC3 = () => {
     ary.push(totalObj[items]);
     newData.push(ary);
   });
-  let chart = c3.generate({
+  c3.generate({
     bindto: '#chart', // HTML 元素綁定
     data: {
       type: 'pie',
@@ -122,7 +126,7 @@ const renderOrderSort = () => {
     });
   });
 
-  // 拉出資料關聯
+  // C3資料關聯
   let originAry = Object.keys(totalObj);
 
   let sortAry = [];
@@ -132,9 +136,9 @@ const renderOrderSort = () => {
     ary.push(totalObj[items]);
     sortAry.push(ary);
   });
-  // 比大小
-  sortAry.sort((a, b) => {
-    return b[1] - a[1];
+  // 比大小，由大到小，前三高的品項當作主要色塊，把其餘品項加總到一個色塊
+  sortAry.sort((low, high) => {
+    return high[1] - low[1];
   });
   // 超過 4 筆以上，顯示其他
   if (sortAry.length > 3) {
@@ -148,8 +152,8 @@ const renderOrderSort = () => {
     sortAry.splice(3, deleteSortLen);
     sortAry.push(['其他', otherTotal]);
   }
-  let chart = c3.generate({
-    bindto: '#chart', // HTML 元素綁定
+  c3.generate({
+    bindto: '#chartSum', // HTML 元素綁定
     data: {
       type: 'pie',
       columns: sortAry,
@@ -208,20 +212,7 @@ jsUserOrderInfo.addEventListener('click', (e) => {
     let orderId = e.target.getAttribute('data-id');
     // 是否要刪除客戶訂單資料確認
     const checkDelCustInfo = () => {
-      Swal.fire({
-        title: '確定要刪除這筆客戶訂單資料嗎 ?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-      }).then((result) => {
-        if (result.value) {
-          Swal.fire('修改訂單狀態成功', '', 'success');
-          delSingleOrder(orderId);
-        }
-      });
+      fnDelCustInfo(delSingleOrder, orderId);
     };
     checkDelCustInfo();
   }
@@ -230,23 +221,10 @@ jsUserOrderInfo.addEventListener('click', (e) => {
     let orderId = e.target.getAttribute('data-id');
     let status = e.target.getAttribute('data-status');
     // 是否已處理完客戶訂單資料
-    const checkDelCustInfo = () => {
-      Swal.fire({
-        title: '確定已處理完客戶訂單資料了嗎 ?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-      }).then((result) => {
-        if (result.value) {
-          Swal.fire('修改客戶訂單狀態成功', '', 'success');
-          editOrderInfo(orderId, status);
-        }
-      });
+    const checkProcessCustInfo = () => {
+      fnProcessCustInfo(editOrderInfo, orderId, status);
     };
-    checkDelCustInfo();
+    checkProcessCustInfo();
   }
 });
 
@@ -271,20 +249,7 @@ delOrderAllBtn.addEventListener('click', (e) => {
   e.preventDefault();
   // 是否要刪除所有客戶訂單資料確認
   const checkDelAllCust = () => {
-    Swal.fire({
-      title: '請注意!! 要把所有客戶訂單資料全部刪除嗎 ?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '確定',
-      cancelButtonText: '取消',
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire('您已清除所有客戶訂單資料', '', 'success');
-        delOrderAllApi();
-      }
-    });
+    fnDelCustAllCust(delOrderAllApi);
   };
   checkDelAllCust();
 });
