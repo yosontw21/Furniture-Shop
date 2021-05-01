@@ -16,17 +16,17 @@
   <nav class="navbar navbar-expand-sm py-4">
     <div class="container d-flex">
       <h1 class="font-lg font-weight-bold logo">
-        <a href="index.html" class="text-dark">
+        <a href="index.html">
           WOWOROOM</a>
       </h1>
 
       <ul class="navbar ml-auto">
-        <li class="nav-item"><a href="" class="nav-link text-dark px-3 nav-hover">後台管理</a></li>
-        <li class="nav-item"><a href="" class="nav-link text-success px-3 nav-hover">管理員登入</a></li>
+        <li class="nav-item"><a href="" class="nav-link px-3 nav-hover">後台管理</a></li>
+        <li class="nav-item"><a href="" class="nav-link px-3 nav-hover">管理員登入</a></li>
       </ul>
     </div>
   </nav>
-  <div class="bg-dark w-100 mb-8" style=" height: 40px;"></div>
+  <div class="bg-primary w-100 mb-8" style=" height: 40px;"></div>
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-12">
@@ -40,27 +40,65 @@
       </div>
     </div>
   </div>
-  <div class="container mb-10">
+  <div class="container mb-10 mt-6">
     <div class="text-right mb-3">
       <a href="#" class="btn delOrderAllBtn">刪除所有品項</a>
     </div>
-    <table class="table-list font-sm w-100 table-hover">
-      <thead>
-        <tr>
-          <th>訂單編號</th>
-          <th>聯絡人</th>
-          <th>聯絡地址</th>
-          <th>電子郵件</th>
-          <th>訂單品項</th>
-          <th>訂單日期</th>
-          <th>訂單狀態</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody class="jsUserOrderInfo">
+    <div class="scroll-lg">
+      <table class="table-list table-hover text-nowrap font-xs w-100">
+        <thead>
+          <tr>
+            <th>訂單編號</th>
+            <th>聯絡人</th>
+            <th>聯絡地址</th>
+            <th>電子郵件</th>
+            <th>訂單品項</th>
+            <th>訂單日期</th>
+            <th>訂單狀態</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody class="jsUserOrderInfo">
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- modal-->
+  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content px-4">
+        <div class="modal-header border-0">
+
+        </div>
+        <div class="modal-body py-0">
+          <div class="bg-secondary border border-primary row align-items-center  py-3 mb-4">
+            <span class="col-9 col-md-7">品項</span>
+            <span class="col-3 col-md-2">數量</span>
+            <span class="col-md-3 d-none d-md-block">金額</span>
+          </div>
+          <ul class="js-modalBody">
+            <li class="row align-items-center mb-2">
+              <span class="col-9 col-md-7">Antony 遮光窗簾</span>
+              <span class="col-3 col-md-2">x1</span>
+              <span class="col-md-3 d-none d-md-block">NT$1,200</span>
+            </li>
+            <li class="row align-items-center mb-2">
+              <span class="col-9 col-md-7">Antony 遮光窗簾</span>
+              <span class="col-3 col-md-2">x1</span>
+              <span class="col-md-3 d-none d-md-block">NT$1,200</span>
+            </li>
+            <div class="border-top text-right pt-2 mt-3">總金額<span class="ml-3">NT$2,400</span>
+            </div>
+          </ul>
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">確認</button>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- bootstrap-->
   <script src=" https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -84,6 +122,7 @@
   <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 
   <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/utilities.js"></script>
   <script type="module" src="./assets/js/module.js"></script>
   <script type="module" src="./assets/js/admin.js"></script>
 </body>

@@ -32,7 +32,7 @@ const getProductList = () => {
 const renderProductData = (productData) => {
   let str = '';
   productData.forEach((items) => {
-    let productInfo = `<li class="col-md-3 position-relative mb-7 ">
+    let productInfo = `<li class="col-lg-3 col-md-4 col-6 position-relative mb-7 ">
     <img src="${
       items.images
     }" alt="" class="bg-cover w-100" style="height: 302px;">
@@ -71,35 +71,42 @@ const renderCartList = () => {
   let cartSum = 0;
   cartData.forEach((items) => {
     let productSum = items.product.price * items.quantity;
-    let cartListInfo = `<tbody>
-    <tr>
-      <td>
-        <div class="d-flex align-items-center">
-          <img src="${
-            items.product.images
-          }" alt="" class="mr-4" style="width: 80px; height: 80px;">
-          <p>${items.product.title}</p>
-        </div>
-      </td>
-      <td>NT$${toThousand(items.product.price)}</td>
-      <td>
-      <div class="d-flex align-items-center">
-        <a href="" class="icon-edit material-icons mr-2 font-weight-bold"  data-id="${
-          items.id
-        }">remove<a>
-            ${items.quantity}
-            <a href="" class="icon-edit material-icons ml-2 font-weight-bold" data-id="${
-              items.id
-            }" >add</a>
-      </div>
-    </td>
-      <td>NT$${toThousand(productSum)}</td>
-      <td class="delcardBtn text-center">
-  
-        <a href="" class="material-icons" data-id="${items.id}">clear</a>
-      </td>
-    </tr>
-  </tbody>`;
+    let cartListInfo = `<ul class="row align-items-center border-bottom pb-4 mb-4">
+    <li class="col-md-4 col-lg-3 d-flex flex-column flex-md-row align-items-md-center mb-md-0 mb-2 font-sm">
+      <img src="${
+        items.product.images
+      }" alt="" class="cardImg mr-4 mb-md-0 mb-3">
+     <p>
+      <span class="d-md-none font-weight-bold">品名:</span>
+      ${items.product.title}
+      </p>
+    </li>
+    <li class="col-md-2 col-lg-3 mb-md-0 mb-2 font-sm">
+
+      <span class="d-md-none font-weight-bold">單價:</span>
+      NT$${toThousand(items.product.price)}
+
+    </li>
+    <li class="col-md-2 col-lg-3 d-flex align-items-center mb-md-0 mb-2 font-sm">
+      <span class="d-md-none font-weight-bold">數量:</span>
+      <a href="" class="icon-edit material-icons mr-2 font-weight-bold" data-id="${
+        items.id
+      }">remove<a>
+      ${items.quantity}
+          <a href="" class="icon-edit material-icons ml-2 font-weight-bold" data-id="${
+            items.id
+          }">add</a>
+    </li>
+    <li class="col-md-4 col-lg-3 d-flex align-items-center justify-content-between font-sm">
+          <p>
+      <span class="d-md-none font-weight-bold">金額:</span> NT$${toThousand(
+        productSum
+      )}
+          </p>
+      <a href="" class="material-icons delcardBtn icon-clear">clear</a>
+    </li>
+  </ul>`;
+
     str += cartListInfo;
     cartSum += productSum;
   });
@@ -109,10 +116,15 @@ const renderCartList = () => {
 
 // 取得購物車列表 API
 const getCartList = () => {
-  axios.get(`${api}/${api_path}/carts`).then((res) => {
-    cartData = res.data.carts;
-    renderCartList();
-  });
+  axios
+    .get(`${api}/${api_path}/carts`)
+    .then((res) => {
+      cartData = res.data.carts;
+      renderCartList();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 // 加入購物車

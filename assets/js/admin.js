@@ -4,6 +4,8 @@ import {fnDelCustAllCust} from './module.js';
 
 // 綁定 DOM
 const jsUserOrderInfo = document.querySelector('.jsUserOrderInfo');
+const modal = document.querySelector('#modal');
+const modalBody = document.querySelector('.js-modalBody');
 
 // header
 const headers = {
@@ -33,23 +35,17 @@ const getOrderList = () => {
 // 渲染資料
 const renderOrderList = () => {
   let str = '';
-  orderData.forEach((items) => {
+  orderData.forEach((items, index) => {
     // 組時間字串
     const timeStamp = new Date(items.createdAt * 1000);
     const thisTime = `${timeStamp.getFullYear()}/${
       timeStamp.getMonth() + 1
     }/${timeStamp.getDate()}`;
 
-    // 組產品字串
-    let productStr = '';
-    items.products.forEach((productItems) => {
-      productStr += `<p class="mb-2">${productItems.title}x${productItems.quantity}</p>`;
-    });
-
     // 判斷訂單處理狀態
     let orderStatus = '';
     if (items.paid == true) {
-      orderStatus = '已處理';
+      orderStatus = `<p class="text-success">已處理</p>`;
     } else {
       orderStatus = '未處理';
     }
@@ -62,7 +58,7 @@ const renderOrderList = () => {
       </td>
       <td>${items.user.address}</td>
       <td>${items.user.email}</td>
-      <td>${productStr}</td>
+      <td><a href="#" class="js-orderInfo text-secondary" data-toggle="modal" data-target="#modal${index}">查看訂單</a></td>
       <td>${thisTime}</td>
       <td class="js-orderStatus">
         <a href="" class="orderStatus" data-status="${items.paid}" data-id="${items.id}">${orderStatus}</a>
@@ -73,6 +69,35 @@ const renderOrderList = () => {
     str += userOrder;
   });
   jsUserOrderInfo.innerHTML = str;
+  // 綁訂定單DOM
+  const singleOrderList = document.querySelectorAll('.js-orderInfo');
+  singleOrderList.forEach((items) => {
+    items.addEventListener('click', checkOrderList, false);
+  });
+};
+
+// 點擊訂單
+const checkOrderList = (e) => {
+  let index = e.target.dataset.target.slice(-1);
+
+  modal.id = `modal${index}`;
+  let strModalBody = '';
+  let strModalFooter = '';
+
+  orderData[index].products.forEach((items) => {
+    strModalBody += `<li class="row align-items-center mb-3">
+  <span class="col-9 col-md-7">${items.title}</span>
+  <span class="col-3 col-md-2">x ${items.quantity}</span>
+  <span class="col-md-3 d-none d-md-block">NT$${toThousand(
+    items.price * items.quantity
+  )}</span>
+  </li>`;
+    strModalFooter = `<div class="border-top border-secondary-light text-right pt-3 mt-4 font-sm">總金額<span class="ml-3">NT$${toThousand(
+      orderData[index].total
+    )}</span></div>`;
+  });
+
+  modalBody.innerHTML = strModalBody + strModalFooter;
 };
 
 // 顯示 C3 圖表
@@ -105,7 +130,7 @@ const renderOrderC3 = () => {
       columns: newData,
     },
     color: {
-      pattern: ['#301E5F', '#5434A7', '#9D7FEA', '#DACBFF'],
+      pattern: ['#b67900', '#ecab2a', '#ffd788', '#b1a389'],
     },
   });
 };
@@ -159,7 +184,7 @@ const renderOrderSort = () => {
       columns: sortAry,
     },
     color: {
-      pattern: ['#301E5F', '#5434A7', '#9D7FEA', '#DACBFF'],
+      pattern: ['#b67900', '#ecab2a', '#ffd788', '#b1a389'],
     },
   });
 };

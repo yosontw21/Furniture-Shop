@@ -1,0 +1,16 @@
+.form-item {
+  width: 60%;
+  @include media-breakpoint-down (sm) {
+    width: 75%;
+  }
+}
+
+.select-category {
+  width: 30%;
+  @include media-breakpoint-down (md) {
+    width: 50%;
+  }
+  @include media-breakpoint-down (sm) {
+    width: 100%;
+  }
+}

@@ -1,5 +1,7 @@
 .recommend-card{
   min-width: 350px;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
 }
 
 .recommend-card img {
@@ -8,33 +10,56 @@
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+}
+
+@include media-breakpoint-down(md) {
+  .ship-card {
+    width: 48%;
+  }
 }
 
 .recommend-img img{
   border-radius: 50%;
   width: 40px;
-}
-
-.recommend-wall {
-  overflow-x: scroll;
+  
 }
 
 .recommend-wall::-webkit-scrollbar {
   display: none;
 }
 
-.transport-info li:nth-child(1)::after,
-.transport-info li:nth-child(2)::after,
-.transport-info li:nth-child(3)::after {
-  content: '';
-  position: absolute;
-  top: 49px;
-  right: -100px;
-  border: 10px solid $dark;
-  border-top: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+@include media-breakpoint-up(xl) {
+  .transport-info li:nth-child(1)::after,
+  .transport-info li:nth-child(2)::after,
+  .transport-info li:nth-child(3)::after {
+    content: '';
+    position: absolute;
+    top: 49px;
+    right: -100px;
+    border: 10px solid $dark;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
 }
+
+@include media-breakpoint-up(lg) {
+  .transport-info li:nth-child(1)::after,
+  .transport-info li:nth-child(2)::after,
+  .transport-info li:nth-child(3)::after {
+    content: '';
+    position: absolute;
+    top: 49px;
+    right: -80px;
+    border: 10px solid $dark;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+}
+
 
 .card-product {
   position: absolute;
@@ -44,4 +69,13 @@
   padding: 8px 20px;
   color: #ffffff;
   font-size: 20px;
+}
+
+.cardImg {
+  height: 100px;
+  width: 100px;
+@include media-breakpoint-down(sm) {
+  width: 100%;
+  object-fit: cover;
+}
 }

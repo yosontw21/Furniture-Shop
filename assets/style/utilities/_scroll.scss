@@ -1,0 +1,16 @@
+@include media-breakpoint-down (sm) {
+  .scroll {
+    overflow-x: scroll;
+  }
+}
+
+@include media-breakpoint-down (lg) {
+  .scroll-lg {
+    overflow-x: scroll;
+  }
+}
+
+
+.recommend-wall {
+  overflow-x: scroll;
+}
