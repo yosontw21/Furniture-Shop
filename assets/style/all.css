@@ -12378,6 +12378,18 @@ table {
   vertical-align: bottom;
 }
 
+/* layout */
+@media (max-width: 767.98px) {
+  .navbar-collapse .navbar-nav .nav-link {
+    border-bottom: 1px solid #fff;
+    background: #838181;
+    color: #fff !important;
+  }
+  .navbar-collapse .navbar-nav .nav-link:hover {
+    color: #ffcc67 !important;
+  }
+}
+
 /* utilities */
 .font-2xs {
   font-size: 14px;
@@ -12509,12 +12521,12 @@ table {
 }
 
 .nav-hover {
-  color: #000;
-  font-weight: bold;
+  color: #000 !important;
+  font-weight: bold !important;
 }
 
 .nav-hover:hover {
-  color: #b67900;
+  color: #b67900 !important;
 }
 
 .logo a {

@@ -1,0 +1,11 @@
+
+.navbar-collapse .navbar-nav .nav-link {
+  @include media-breakpoint-down (sm) {
+    border-bottom: 1px solid #fff;
+    background: rgb(131, 129, 129);
+    color: #fff !important;
+    &:hover {
+      color: $secondary !important;
+    }
+  }
+}

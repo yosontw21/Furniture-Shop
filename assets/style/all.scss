@@ -7,6 +7,9 @@
 /* base */
 @import './base/base';
 
+/* layout */
+@import './layout/navbar';
+
 /* utilities */
 @import './utilities/text';
 @import './utilities/bg';
@@ -16,4 +19,4 @@
 
 /* components */
 @import './components/card';
-@import './components/form'
+@import './components/form';

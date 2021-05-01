@@ -276,7 +276,7 @@ orderListInfo.addEventListener('click', (e) => {
   const userAddress = document.querySelector('.userAddress').value;
   const userPayment = document.querySelector('.userPayment').value;
 
-  let cartLength = document.querySelectorAll('.cartList tr').length;
+  let cartLength = document.querySelectorAll('.cartList li').length;
   if (cartLength == 0) {
     Swal.fire('請輸入至少一個購物車商品', '', 'warning');
     return;

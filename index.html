@@ -7,32 +7,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./assets/style/all.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Document</title>
+  <title>WOWOROOM</title>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-sm py-4">
-    <div class="container d-flex">
-      <h1 class="font-lg font-weight-bold logo">
+  <nav class="navbar navbar-expand-md py-3 navbar-light px-0 fixed-top border-bottom border-dark bg-light">
+    <div class="container-fulid container-md">
+      <h1 class="font-lg font-weight-bold logo ml-5 ml-md-0">
         <a href="index.html">
           WOWOROOM</a>
       </h1>
-
-      <ul class="navbar ml-auto">
-        <li class="nav-item"><a href="#advantage" class="nav-link px-3 nav-hover">床墊優勢</a></li>
-        <li class="nav-item"><a href="#praise" class="nav-link px-3 nav-hover">好評推薦</a></li>
-        <li class="nav-item"><a href="#transport" class="nav-link px-3 nav-hover">運送方式</a></li>
-        <li class="nav-item"><a href="#cart-shop" class="nav-link  px-3 nav-hover">立即預訂</a></li>
-      </ul>
-
+      <button class="navbar-toggler mb-md-0 mb-3 mr-5 ml-md-0" type="button" data-toggle="collapse"
+        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item"><a href="#advantage" class="nav-link px-3 nav-hover text-center font-md">床墊優勢</a></li>
+          <li class="nav-item"><a href="#praise" class="nav-link px-3 nav-hover text-center font-md">好評推薦</a></li>
+          <li class="nav-item"><a href="#transport" class="nav-link px-3 nav-hover text-center font-md">運送方式</a></li>
+          <li class="nav-item"><a href="#cart-shop" class="nav-link  px-3 nav-hover text-center font-md">立即預訂</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
-  <div class="bg-primary w-100 mb-7" style=" height: 40px;"></div>
-  <div class="container mb-8">
+  <div class="container mb-8 mt-10">
     <div class="position-relative">
       <div class="bg-cover w-100" style="background-image: url('./assets/images/banner.jpg'); min-height: 420px;"></div>
-
       <p class="position-absolute font-2xl text-white" style="bottom: 40px; left: 48px;">窩窩家居<br>跟您一起品味生活</p>
     </div>
   </div>
@@ -333,13 +335,18 @@
             <div class="col-md-4 col-lg-3 font-md font-weight-bold">金額</div>
           </div>
           <div class="cartList">
-            <ul class="row align-items-center border-bottom pb-4 mb-4">
+            <ul class="row align-items-center border-bottom pb-4 mb-4 cartList">
               <img src="./assets/images/Spin-1s-200px-bg-light.svg" style="margin: auto;">
             </ul>
           </div>
           <div class="d-flex justify-content-between">
             <a href="" class="btn delOrderAllBtn">刪除所有品項</a>
-            <div class="jsCartSum font-weight-bold font-md">NT$0</div>
+
+            <div
+              class="col-md-5 col-lg-4 d-flex flex-column flex-md-row align-items-end align-items-md-center justify-content-md-between pr-0 font-md font-weight-bold">
+              總金額
+              <span class="jsCartSum font-md font-weight-bold"></span>
+            </div>
           </div>
         </div>
       </div>
