@@ -103,7 +103,9 @@ const renderCartList = () => {
         productSum
       )}
           </p>
-      <a href="" class="material-icons delcardBtn icon-clear">clear</a>
+      <a href="" class="material-icons delcardBtn icon-clear" data-id="${
+        items.id
+      }">clear</a>
     </li>
   </ul>`;
 
